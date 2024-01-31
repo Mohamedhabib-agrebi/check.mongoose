@@ -51,9 +51,9 @@ exports.DeleteContact = async(req,res)=>{
 exports.UpdateContact = async(req,res)=>{
     try {
         const {id} = req.params
-        await Contact.findByIdAndDelete(id)
+        await Contact.findByIdAndUpdate(id,{$set : req.body})
 
-        res.status(200).send("contact deleted")
+        res.status(200).send("contact updated")
     } catch (error) {
         res.status(500).send('could not delete contact')
     }
@@ -63,9 +63,9 @@ exports.UpdateContact = async(req,res)=>{
 exports.GetOneContact = async(req,res)=>{
     try {
         const {id} = req.params
-        await Contact.findByIdAndDelete(id)
+        const found = await Contact.findById(id)
 
-        res.status(200).send("contact deleted")
+        res.status(200).send(found)
     } catch (error) {
         res.status(500).send('could not delete contact')
     }
